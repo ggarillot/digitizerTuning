@@ -337,7 +337,7 @@ Then, the efficiencies are adjusted as described [previously](#adjust-the-effici
 ```
 Then I upload the result file on the storage system and I delete the intermediate files. Note that I didn't upload the output file from the digitizer, because if I did so, for all the jobs, it would have taken around 2TB of disk space.
 
-## The neural network
+## The neural network
 
 Once we have the fits for all the parameters sets {q,delta,d}, we can train our neural network. First we have to create two `.root` files, one file containing a `TTree` for the training set, and one containing a `TTree` for the testing set. It is done by the `createTree.C` macro in the `NN/` folder
 
@@ -395,7 +395,7 @@ If you want to reproduce results from the run 730716 for example. To generate su
 
 In the `SimDigitalScript/` folder you can find a simple example script `digitOnLocal.py` to know how to launch the digitization. The default parameters are indicated in the `SimDigital.py` file.
 
-## Compare simulation / data
+## Compare simulation / data
 
 In progress...
 
