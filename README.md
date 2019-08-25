@@ -207,15 +207,15 @@ You can launch the `muonSimLaunch.py` script to generate the muon sample. Make s
 ### The digitization
 
 To tune the digitizer to reproduce efficiency and multiplicity I played with three parameters : 
-* $\overline{q}$ and $\delta$, related to the charge inducing
-* $d$ related to the charge spreading
+* q and delta, related to the charge inducing
+* d related to the charge spreading
 
-A manual tuning for all the ~7000 ASICs would take too much time, so I decided to use a neural network instead. To train this neural network, I launched a lot of digitizations with different sets of $\{\overline{q},\delta,d\}$.
+A manual tuning for all the ~7000 ASICs would take too much time, so I decided to use a neural network instead. To train this neural network, I launched a lot of digitizations with different sets of {q,delta,d}.
 
 The choosen sets were : 
-* $\overline{q}$ from 0.25 to 10 with steps of 0.25 and $\delta$ from 0.25 to 4 with steps of 0.25 and $\overline{q}$ < 4$\delta$
-* $\overline{q}$ from 8 to 20 with steps of 0.5 and $\delta$ from 4 to 12 with steps of 0.5 and $\overline{q}$ < 2$\delta$
-* $d$ : {0.025, 0.04, 0.05, 0.07, 0.075, 0.1, 0.12, 0.125, 0.15, 0.17, 0.175, 0.2, 0.25, 0.27, 0.3, 0.4, 0.45, 0.5, 0.6, 0.65, 0.7, 0.8, 0.85, 0.9, 1}
+* q from 0.25 to 10 with steps of 0.25 and $\delta$ from 0.25 to 4 with steps of 0.25 and q < 4 * delta
+* q from 8 to 20 with steps of 0.5 and $\delta$ from 4 to 12 with steps of 0.5 and q < 2 * delta
+* d : {0.025, 0.04, 0.05, 0.07, 0.075, 0.1, 0.12, 0.125, 0.15, 0.17, 0.175, 0.2, 0.25, 0.27, 0.3, 0.4, 0.45, 0.5, 0.6, 0.65, 0.7, 0.8, 0.85, 0.9, 1}
 
 for a grand total of 17650 different sets. This may be a bit too much but I didn't try to train the network with less or more points because I was satisfied with the results after the first try.
 
@@ -250,7 +250,7 @@ if __name__ == '__main__' :
 
 	dList = [ str(0.025) , str(0.04) , str(0.05) , str(0.07) , str(0.075) , str(0.1) , str(0.12) , str(0.125) , str(0.15) , str(0.17) , str(0.175) , str(0.2) , str(0.25) , str(0.27) , str(0.3) , str(0.4) , str(0.45) , str(0.5) , str(0.6) , str(0.65) , str(0.7) , str(0.8) , str(0.85) , str(0.9) , str(1) ]
 ```
-Here you can see that a job needs two parameters, `qbar` and `delta`, and it will loop on all the `dList` values (this would have taken too much jobs if I ran one job for each $\{\overline{q},\delta,d\}$ set).
+Here you can see that a job needs two parameters, `qbar` and `delta`, and it will loop on all the `dList` values (this would have taken too much jobs if I ran one job for each {q,delta,d} set).
 
 ```python
     fileNameMu = 'single_mu-_50GeV_I1.slcio'
@@ -339,7 +339,7 @@ Then I upload the result file on the storage system and I delete the intermediat
 
 ## The neural network
 
-Once we have the fits for all the parameters sets $\{\overline{q},\delta,d\}$, we can train our neural network. First we have to create two `.root` files, one file containing a `TTree` for the training set, and one containing a `TTree` for the testing set. It is done by the `createTree.C` macro in the `NN/` folder
+Once we have the fits for all the parameters sets {q,delta,d}, we can train our neural network. First we have to create two `.root` files, one file containing a `TTree` for the training set, and one containing a `TTree` for the testing set. It is done by the `createTree.C` macro in the `NN/` folder
 
 ```shell
     root -l createTree.C 
@@ -366,7 +366,7 @@ To train the network you have to run
 ```
 I cannot test it the network trains fine as I don't have all the fits files anymore. Once the training has finished it should have created a `weights/` folder containing the weights of the trained network.
 
-By doing this, you have created a network that can, from desired multiplicities and efficiencies ($\overline{q}$ and $\delta$), compute the input parameter to give to the digitizer in order from it to produce a simulation file that matches this desired multiplicities and efficiencies.
+By doing this, you have created a network that can, from desired multiplicities and efficiencies (q and delta), compute the input parameter to give to the digitizer in order from it to produce a simulation file that matches this desired multiplicities and efficiencies.
 
 Then, you have to run
 
