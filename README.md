@@ -318,13 +318,13 @@ Here, you have a bunch of paths that you need to change according to your instal
         effProcParams.outputFileName = 'map_' + qbar + '_' + delta + '_' + d + '.root'      
         EfficiencyProcessor.launch(effProcParams , fileListForAnalysis)
 ```
-Here the efficiencies and the multiplicities are computed as described [previously](#-compute-the-efficiencies-multiplicies-for-a-given-run)
+Here the efficiencies and the multiplicities are computed as described [previously](#compute-the-efficiencies-multiplicies-for-a-given-run-)
 
 ```python
         #polya fit
         os.system('./fitSim ' + effProcParams.outputFileName)
 ```
-Then, the efficiencies are adjusted as described [previously](#-adjust-the-efficiencies-and-multiplicies-versus-the-threshold). The `fitSim` program does the same stuff that the `fit` program, but takes a simulation file instead of a list of DATA files from a `.json` file.
+Then, the efficiencies are adjusted as described [previously](#adjust-the-efficiencies-and-multiplicies-versus-the-threshold-). The `fitSim` program does the same stuff that the `fit` program, but takes a simulation file instead of a list of DATA files from a `.json` file.
 
 ```python 
         outputFileName = 'Fit_' + qbar + '_' + delta + '_' + d + '.root'
@@ -391,7 +391,7 @@ In order to reproduce a certain standard run (standard thresholds 0.114, 5, 15 p
     digitParams.effOption = 'PerAsic'
     digitParams.effMap = '/path/to/your/files/Eff_730716.root'
 ```
-If you want to reproduce results from the run 730716 for example. To generate such a file, you just have to follow [this section](#-compute-the-efficiencies-multiplicies-for-a-given-run).
+If you want to reproduce results from the run 730716 for example. To generate such a file, you just have to follow [this section](#compute-the-efficiencies-multiplicies-for-a-given-run-).
 
 In the `SimDigitalScript/` folder you can find a simple example script `digitOnLocal.py` to know how to launch the digitization. The default parameters are indicated in the `SimDigital.py` file.
 
