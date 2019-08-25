@@ -213,13 +213,13 @@ To tune the digitizer to reproduce efficiency and multiplicity I played with thr
 A manual tuning for all the ~7000 ASICs would take too much time, so I decided to use a neural network instead. To train this neural network, I launched a lot of digitizations with different sets of {q,delta,d}.
 
 The choosen sets were : 
-* q from 0.25 to 10 with steps of 0.25 and $\delta$ from 0.25 to 4 with steps of 0.25 and q < 4 * delta
-* q from 8 to 20 with steps of 0.5 and $\delta$ from 4 to 12 with steps of 0.5 and q < 2 * delta
+* q from 0.25 to 10 with steps of 0.25 and delta from 0.25 to 4 with steps of 0.25 and q < 4 * delta
+* q from 8 to 20 with steps of 0.5 and delta from 4 to 12 with steps of 0.5 and q < 2 * delta
 * d : {0.025, 0.04, 0.05, 0.07, 0.075, 0.1, 0.12, 0.125, 0.15, 0.17, 0.175, 0.2, 0.25, 0.27, 0.3, 0.4, 0.45, 0.5, 0.6, 0.65, 0.7, 0.8, 0.85, 0.9, 1}
 
 for a grand total of 17650 different sets. This may be a bit too much but I didn't try to train the network with less or more points because I was satisfied with the results after the first try.
 
-As this three parameters changes, the cluster sizes of the digitized tracks will also changes. The problem is that the track reconstuction algorithm is not very consistent with the cluster size changes. For extreme parameters cases (for example $d = 1$), the average cluster size can reach something like 8 (or maybe more), so if we apply this parameter to the whole SDHCAL, the track algorithm will never reconstruct any track, because too big clusters are not considered as a potential track cluster for the algorithm.
+As this three parameters changes, the cluster sizes of the digitized tracks will also changes. The problem is that the track reconstuction algorithm is not very consistent with the cluster size changes. For extreme parameters cases (for example d = 1), the average cluster size can reach something like 8 (or maybe more), so if we apply this parameter to the whole SDHCAL, the track algorithm will never reconstruct any track, because too big clusters are not considered as a potential track cluster for the algorithm.
 
 The compromise I choose is to change only the parameters for a certain layer (I choose the layer 25 because it is in the middle of the detector), and keep the default parameters for all the other layers. In this case, the track algorithm will reconstruct the tracks as usual, the clusters from the layer 25 may not always be uncluded in the tracks (if they are too large), but it doesn't matter because they will still be taken into account in the efficiency / multiplicity calculation for this layer.
 
@@ -293,7 +293,7 @@ Here I set the parameters for the efficiency / multiplicity calculation (SDHCALM
         #create map
         os.system('./createMap ' + str(qbar) + ' ' + str(delta) + ' ' + str(d))
 ```
-Here the loops on the $d$ parameter begins. First, the `map.root` input file is generated.
+Here the loops on the d parameter begins. First, the `map.root` input file is generated.
 
 ```python
         #digit
